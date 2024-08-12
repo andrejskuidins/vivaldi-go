@@ -22,7 +22,7 @@ func main() {
 
 </html>
 `
-	err := os.WriteFile("window2.html", []byte(multiline_window), 0644)
+	err := os.WriteFile("/opt/vivaldi/resources/vivaldi/window.html", []byte(multiline_window), 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
