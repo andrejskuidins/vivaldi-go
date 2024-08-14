@@ -7,22 +7,25 @@ import (
 )
 
 func main() {
-	multiline_window, err := os.ReadFile("/opt/vivaldi/resources/vivaldi/window.html")
-	if err != nil {
-		log.Fatal(err)
-	}
+	filePath := "/opt/vivaldi/resources/vivaldi/window.html"
 
-	file, err := os.Create("/opt/vivaldi/resources/vivaldi/window.html")
+	multiline_window, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
 
 	content := string(multiline_window)
-	newContent := strings.Replace(content, "<body>", "<body>\n  <script src=\"custom.js\"></script>", 1)
 
-	err = os.WriteFile("/opt/vivaldi/resources/vivaldi/window.html", []byte(newContent), 0644)
-	if err != nil {
-		log.Fatal(err)
+	// Check if the script is already present
+	if !strings.Contains(content, "custom.js") {
+		newContent := strings.Replace(content, "<body>", "<body>\n  <script src=\"custom.js\"></script>", 1)
+
+		err = os.WriteFile(filePath, []byte(newContent), 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Println("File updated successfully")
+	} else {
+		log.Println("Script already present, no changes made")
 	}
 }
