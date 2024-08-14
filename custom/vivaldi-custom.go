@@ -12,7 +12,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	file, err := os.Create("window.html")
+	file, err := os.Create("/opt/vivaldi/resources/vivaldi/window.html")
 	if err != nil {
 		log.Fatal(err)
 	}
